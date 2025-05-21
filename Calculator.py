@@ -62,9 +62,10 @@ class Example(QtWidgets.QWidget):
         lcd.setText('0') #removed .decode
         grid = QtWidgets.QGridLayout()
         self.setLayout(grid)
-        #self.setMinimumSize(300, 300)
-        #self.setMaximumSize(300, 300)
-        #self.setGeometry( 200, 100, 200, 200 )
+        self.resize(350, 550)  # Set the window size here
+        # self.setMinimumSize(400, 400)
+        # self.setMaximumSize(600, 600)
+        # self.setGeometry(300, 200, 300, 300)
         grid.setSpacing(0)
         grid.addWidget(menubar, self.point, 0, 1, 4)
         grid.addWidget(lcd, self.point+1, 0, 1, 4)
