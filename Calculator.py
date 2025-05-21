@@ -1,17 +1,17 @@
 #coding=utf-8
-from __future__ import division
+# from __future__ import division
 import sys
 
-from PyQt4 import QtGui, QtCore
+from PyQt5 import QtWidgets, QtWidgets, QtCore, QtGui
 
 ########################################################################
-class Example(QtGui.QWidget):
+class Example(QtWidgets.QWidget):
     """"""
 
     #----------------------------------------------------------------------
     def __init__(self):
         """Constructor"""
-        super(Example, self).__init__()
+        super().__init__()
 
         self.initUI_basic()
 
@@ -35,15 +35,15 @@ class Example(QtGui.QWidget):
         
         
         #-------------------------------------------------------------------------
-        exitAction = QtGui.QAction(QtGui.QIcon('exit.png'), '&Exit', self)        
+        exitAction = QtWidgets.QAction(QtGui.QIcon('exit.png'), '&Exit', self)        
         exitAction.setShortcut('Ctrl+Q')
         #exitAction.setStatusTip('Exit application')
-        exitAction.triggered.connect(QtGui.qApp.quit)
+        exitAction.triggered.connect(QtWidgets.qApp.quit)
         
-        aboutAction = QtGui.QAction(QtGui.QIcon(''), '&About', self)
+        aboutAction = QtWidgets.QAction(QtGui.QIcon(''), '&About', self)
         aboutAction.triggered.connect(self.OnAboutButton)
         
-        menubar = QtGui.QMenuBar()
+        menubar = QtWidgets.QMenuBar()
         
         fileMenu = menubar.addMenu('&File')
         fileMenu.addAction(exitAction)
@@ -53,13 +53,14 @@ class Example(QtGui.QWidget):
         
         #----------------------------------------------------------------------
         global lcd
-        lcd = QtGui.QTextBrowser()
+        lcd = QtWidgets.QTextBrowser()
         lcd.setFixedHeight(190)
         lcd.setFont(QtGui.QFont("Microsoft YaHei", 20))
         
         #lcd.setFixedWidth(100)
-        lcd.setText('0'.decode('utf-8'))
-        grid = QtGui.QGridLayout()
+        # lcd.setText('0'.decode('utf-8')) Original .decode line
+        lcd.setText('0') #removed .decode
+        grid = QtWidgets.QGridLayout()
         self.setLayout(grid)
         #self.setMinimumSize(300, 300)
         #self.setMaximumSize(300, 300)
@@ -70,23 +71,23 @@ class Example(QtGui.QWidget):
         
         
         #----------------------------------------------------------------------
-        button_1 = QtGui.QPushButton('1')
-        button_2 = QtGui.QPushButton('2')
-        button_3 = QtGui.QPushButton('3')
-        button_4 = QtGui.QPushButton('4')
-        button_5 = QtGui.QPushButton('5')
-        button_6 = QtGui.QPushButton('6')
-        button_7 = QtGui.QPushButton('7')
-        button_8 = QtGui.QPushButton('8')
-        button_9 = QtGui.QPushButton('9')
-        button_0 = QtGui.QPushButton('0')
-        button_dot = QtGui.QPushButton('.')
-        button_equ = QtGui.QPushButton('=')
-        button_div = QtGui.QPushButton('/')
-        button_mul = QtGui.QPushButton('*')
-        button_add = QtGui.QPushButton('+')
-        button_sub = QtGui.QPushButton('-')
-        button_cls = QtGui.QPushButton('cls')
+        button_1 = QtWidgets.QPushButton('1')
+        button_2 = QtWidgets.QPushButton('2')
+        button_3 = QtWidgets.QPushButton('3')
+        button_4 = QtWidgets.QPushButton('4')
+        button_5 = QtWidgets.QPushButton('5')
+        button_6 = QtWidgets.QPushButton('6')
+        button_7 = QtWidgets.QPushButton('7')
+        button_8 = QtWidgets.QPushButton('8')
+        button_9 = QtWidgets.QPushButton('9')
+        button_0 = QtWidgets.QPushButton('0')
+        button_dot = QtWidgets.QPushButton('.')
+        button_equ = QtWidgets.QPushButton('=')
+        button_div = QtWidgets.QPushButton('/')
+        button_mul = QtWidgets.QPushButton('*')
+        button_add = QtWidgets.QPushButton('+')
+        button_sub = QtWidgets.QPushButton('-')
+        button_cls = QtWidgets.QPushButton('cls')
         
         button_0.setFixedSize(50, 50)
         button_1.setFixedSize(50, 50)
@@ -106,7 +107,7 @@ class Example(QtGui.QWidget):
         button_sub.setFixedSize(50, 50)
         button_cls.setFixedSize(50, 50)
         
-        button_0.setFont(QtGui.QFont("Microsoft YaHei", 16))
+        #         button_0.setFont(QtWidgets.QFont("Microsoft YaHei", 16))
         button_1.setFont(QtGui.QFont("Microsoft YaHei", 16))
         button_2.setFont(QtGui.QFont("Microsoft YaHei", 16))
         button_3.setFont(QtGui.QFont("Microsoft YaHei", 16))
@@ -145,35 +146,57 @@ class Example(QtGui.QWidget):
 
         self.move(300, 400)
         self.setWindowTitle('Calculator')
-        grid.setSizeConstraint(QtGui.QLayout.SetFixedSize)
+        grid.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.show()
 
-        self.connect(button_0,QtCore.SIGNAL('clicked()'),self.func_button_0)
-        self.connect(button_1,QtCore.SIGNAL('clicked()'),self.func_button_1)
-        self.connect(button_2,QtCore.SIGNAL('clicked()'),self.func_button_2)
-        self.connect(button_3,QtCore.SIGNAL('clicked()'),self.func_button_3)
-        self.connect(button_4,QtCore.SIGNAL('clicked()'),self.func_button_4)
-        self.connect(button_5,QtCore.SIGNAL('clicked()'),self.func_button_5)
-        self.connect(button_6,QtCore.SIGNAL('clicked()'),self.func_button_6)
-        self.connect(button_7,QtCore.SIGNAL('clicked()'),self.func_button_7)
-        self.connect(button_8,QtCore.SIGNAL('clicked()'),self.func_button_8)
-        self.connect(button_9,QtCore.SIGNAL('clicked()'),self.func_button_9)
+        # #outdated section
+        # self.connect(button_0,QtCore.SIGNAL('clicked()'),self.func_button_0)
+        # self.connect(button_1,QtCore.SIGNAL('clicked()'),self.func_button_1)
+        # self.connect(button_2,QtCore.SIGNAL('clicked()'),self.func_button_2)
+        # self.connect(button_3,QtCore.SIGNAL('clicked()'),self.func_button_3)
+        # self.connect(button_4,QtCore.SIGNAL('clicked()'),self.func_button_4)
+        # self.connect(button_5,QtCore.SIGNAL('clicked()'),self.func_button_5)
+        # self.connect(button_6,QtCore.SIGNAL('clicked()'),self.func_button_6)
+        # self.connect(button_7,QtCore.SIGNAL('clicked()'),self.func_button_7)
+        # self.connect(button_8,QtCore.SIGNAL('clicked()'),self.func_button_8)
+        # self.connect(button_9,QtCore.SIGNAL('clicked()'),self.func_button_9)
 
-        self.connect(button_cls,QtCore.SIGNAL('clicked()'),self.func_button_cls)
-        self.connect(button_dot,QtCore.SIGNAL('clicked()'),self.func_button_dot)
+        # self.connect(button_cls,QtCore.SIGNAL('clicked()'),self.func_button_cls)
+        # self.connect(button_dot,QtCore.SIGNAL('clicked()'),self.func_button_dot)
 
-        self.connect(button_add,QtCore.SIGNAL('clicked()'),self.func_button_add)
-        self.connect(button_sub,QtCore.SIGNAL('clicked()'),self.func_button_sub)
-        self.connect(button_mul,QtCore.SIGNAL('clicked()'),self.func_button_mul)
-        self.connect(button_div,QtCore.SIGNAL('clicked()'),self.func_button_div)
+        # self.connect(button_add,QtCore.SIGNAL('clicked()'),self.func_button_add)
+        # self.connect(button_sub,QtCore.SIGNAL('clicked()'),self.func_button_sub)
+        # self.connect(button_mul,QtCore.SIGNAL('clicked()'),self.func_button_mul)
+        # self.connect(button_div,QtCore.SIGNAL('clicked()'),self.func_button_div)
 
-        self.connect(button_equ,QtCore.SIGNAL('clicked()'),self.func_button_equ)
+        # self.connect(button_equ,QtCore.SIGNAL('clicked()'),self.func_button_equ)
 
         #self.statusBar().showMessage('Ready')
         
     #----------------------------------------------------------------------
+
+                # Connect buttons using new style
+        button_0.clicked.connect(self.func_button_0)
+        button_1.clicked.connect(self.func_button_1)
+        button_2.clicked.connect(self.func_button_2)
+        button_3.clicked.connect(self.func_button_3)
+        button_4.clicked.connect(self.func_button_4)
+        button_5.clicked.connect(self.func_button_5)
+        button_6.clicked.connect(self.func_button_6)
+        button_7.clicked.connect(self.func_button_7)
+        button_8.clicked.connect(self.func_button_8)
+        button_9.clicked.connect(self.func_button_9)
+        button_cls.clicked.connect(self.func_button_cls)
+        button_dot.clicked.connect(self.func_button_dot)
+        button_add.clicked.connect(self.func_button_add)
+        button_sub.clicked.connect(self.func_button_sub)
+        button_mul.clicked.connect(self.func_button_mul)
+        button_div.clicked.connect(self.func_button_div)
+        button_equ.clicked.connect(self.func_button_equ)
+
+
     def OnAboutButton( self ):
-        QtGui.QMessageBox.about( self, 'About', "A Calculator!" )
+        QtWidgets.QMessageBox.about( self, 'About', "A Calculator!" )
     
          
     #----------------------------------------------------------------------
@@ -473,7 +496,6 @@ class Example(QtGui.QWidget):
 
                     if self.num_1 == '0':
                         self.num_1 = '0.'
-                        print self.num_1
                         lcd.setText(self.num_1)
                     else:
                         self.num_1 = self.num_1 + '.'
@@ -646,7 +668,8 @@ class Example(QtGui.QWidget):
             elif self.flag_flag == '/':
 
                 if self.num_2 == '0':
-                    lcd.setText("0不能作为除数！".decode('utf-8'))
+                    # lcd.setText("0不能作为除数！".decode('utf-8')) original .decode line
+                    lcd.setText('0') #removed .decode
                     self.flag = 0
                     self.num_1 = '0'
                     self.num_2 = ''
@@ -677,7 +700,7 @@ class Example(QtGui.QWidget):
 #----------------------------------------------------------------------
 def main():
     """"""
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
 
